@@ -1,0 +1,98 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+*{margin: 0;padding: 0;list-style: none;}
+body{font-family:微软雅黑;}
+#teamwraper{width: 1130px;height: 691px;position: absolute;left: 50%;margin-left: -565px}
+span.blt{font-size: 30pt;text-align: center;width: 300px;position: absolute;left: 50%;top: 40px;margin-left: -150px;color:#353129;}
+span.intro{font-size: 11pt;text-align: center;width: 500px;position: absolute;left: 50%;top: 120px;margin-left: -250px;color:#353129;}
+div.teamcircle{width: 200px;height: 200px;border-radius: 100px;position: absolute;top: 250px;background: #353129;text-align: center;opacity: 1}
+div.teamcircle span.cirtitle{color: white;line-height: 200px;font-size: 20px;margin-top: 20px}
+#tmcir1{left:40px;}
+#tmcir2{left:322px;}
+#tmcir3{left:604px;}
+#tmcir4{left:886px;}
+#bottom{width: 250px;height: 30px;border:1px solid #353129;text-align: center;line-height: 30px;position: absolute;left: 50%;margin-left: -125px;bottom:20px;transition:0.3s;cursor: pointer;}
+#bottom:hover{background: #353129;color:white;}
+ul.teaminfo {width: 1130px;height: 300px;position: absolute;left: 0;top: 250px;z-index: -1}
+ul.teaminfo li{width: 280px;height: 298px;border: 1px solid white;float: left;opacity: 1;position: relative;}
+div.mail{width: 200px;height: 160px;position: absolute;left: 50%;margin-left: -100px;top: 20px;text-align: center;color: white;background: rgba(1,1,1,0.6);padding-top: 20px;opacity: 0}
+</style>
+<script type="text/javascript" src="move.js"></script>
+<script type="text/javascript">
+window.onload=function(){
+	var aDiv = document.querySelectorAll('div[class=teamcircle]')
+	var aMail = document.querySelectorAll('div[class=mail]')
+	var aTitle = document.querySelectorAll('span[class=cirtitle]')
+	var oBtn = document.getElementById('bottom');
+	oBtn.onclick=function(){
+		for(var i=0;i<aDiv.length;i++){
+			startMove(aDiv[i],{width:280,height:125,marginLeft:-40,marginTop:130,borderRadius:0})
+			startMove(aMail[i],{marginTop:-40,opacity:1})
+			startMove(aTitle[i],{lineHeight:100})
+		}
+
+	}
+	for(var i=0;i<aDiv.length;i++){
+		(function(index){
+			aDiv[index].onclick=function(){
+				startMove(aDiv[index],{width:280,height:125,marginLeft:-40,marginTop:130,borderRadius:0})
+				startMove(aMail[index],{marginTop:-40,opacity:1})
+				startMove(aTitle[index],{lineHeight:100})
+			}
+		})(i)
+	}
+
+
+}
+</script>
+</head>
+<body >
+	<div id="teamwraper">
+		<span class="blt">我从未离开团队</span>
+		<span class="intro" id="intro">我有限认知的一切都告诉我，团伙作案比单打独斗成功几率更大<br/>这就解释了为什么我对团队合作如此认真</span>
+	<div class="teamcircle" id="tmcir1"><span class="cirtitle">DELL</span><p class="circltxt" style="color:#353129;line-height:120px;font-size:13pt">戴尔实习生</p></div>
+	<div class="teamcircle" id="tmcir2"><span class="cirtitle">ZNS</span><p class="circltxt" style="color:#353129;line-height:120px;font-size:13pt">智能社学员</p></div>
+	<div class="teamcircle" id="tmcir3"><span class="cirtitle">PWC</span><p class="circltxt" style="color:#353129;line-height:120px;font-size:13pt">大学生创业大赛</p></div>
+	<div class="teamcircle" id="tmcir4"><span class="cirtitle">YOU</span><p class="circltxt" style="color:#353129;line-height:120px;font-size:13pt">我即将依赖的你们</p></div>
+	
+	<ul class="teaminfo">
+		<li>
+			<div class="mail">
+				接近一年的戴尔实习<br/>
+				让我充分接触了<br/>
+				来自世界500强的锻炼<br/>
+				职场需要的能力<br/>
+				我具备，感谢我的团队
+			</div>
+		</li>
+		<li>
+			<div class="mail">
+				专业的前端培训<br/>
+				我收获了真正的技能<br/>
+				朋友老师为后盾<br/>
+				我不是孤身奋斗<br/>
+				有战友，感谢我的团队
+			</div>
+		<li>
+			<div class="mail">
+				带领一次创业团队<br/>
+				让我理解了沟通和改变<br/>
+				为了团队应该的付出<br/>
+				从此我不再吝啬<br/>
+				更无私，感谢我的团队
+			</div>
+		<li>
+			<div class="mail">
+				即将共处的你们<br/>
+				给了我太多希冀<br/>
+				相信一个更棒的团队<br/>
+				由你我建立<br/>
+				进步，感谢我们的团队
+			</div>
+	</ul>
+	</div>
+	<div id="bottom">TEAM</div>
+</body>
+</html>

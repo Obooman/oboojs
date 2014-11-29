@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+*{margin: 0;padding: 0;list-style: none}
+/*head*/
+#toup{width: 200px;height: 200px;position: fixed;left: 20px;bottom: 20px;background: url(gif/eat.gif);display: none;}
+#headspace{width: 100%;height: 400px;position: relative;top: 0;left: 0;}
+#head{width: 100%;height: 400px;background: black;position: fixed;top: 0;left: 0;box-shadow: 0 1px 5px 1px black;z-index: 10}
+#headcon{width: 1130px;position: absolute;left: 50%;margin-left: -565px;overflow: hidden;height: 300px;}
+#logo{position: absolute;left: 700px;top: 100px;width: 158px;height: 128px}
+#title{font-size: 80px;color: white;display: inline-block;top: 130px;position: absolute;left: 200px;font-family:"Microsoft YaHei", Verdana, Geneva, sans-serif}
+#oboo_top{width: 120px;height: 66px;}
+/*head end*/
+
+#content{width: 100%;height: 2000px;position: relative;margin: 10px auto;z-index: 0}
+li{width: 100%;height: 60px;margin-bottom: 100px;background: #029df9;border:1px solid white;color: white;font-size: 20px;line-height: 60px;text-align: center;}
+iframe{width: 100%;border: none;height: 691px;z-index: 100}
+#fuck{width: 100%;height: 700px}
+</style>
+<script type="text/javascript" src="move.js"></script>
+<script type="text/javascript">
+window.onload=function(){
+	//window.moveBy(0);
+	var oBtup = document.getElementById('toup');
+	var oHead = document.getElementById('head');
+	var iLogo = document.getElementById('logo');
+	var Oheadspace = document.getElementById('headspace');
+	var oTitle = document.getElementById('title');
+	var oHandWrite = document.getElementById('oboo_top')
+	var oHc = document.getElementById('headcon');
+	//-------------head begin---------------
+	var bsc = true;
+	var bsheep = false;
+	window.onscroll = function(){
+		var scrollTop = document.documentElement.scrollTop||document.body.scrollTop;
+		if(scrollTop == 0 ){
+			startMove(oHead,{'height':400},{'duration':700,'easing':'ease-out'});
+			startMove(Oheadspace,{'height':400},{'duration':700,'easing':'ease-out'});
+			startMove(iLogo,{'height':128,'width':158,'top':100,'left':700},{'duration':700,'easing':'ease-out'});
+			startMove(oTitle,{'fontSize':80,'left':200,'top':130},{'duration':700,'easing':'ease-out'});
+			startMove(oHandWrite,{'width':120,'height':66,'margin-top':80},{'duration':700,'easing':'ease-out'});
+			bsc = true;
+			startMove(oHc,{height:300});
+			oBtup.style.display = 'none';
+			oBtup.style.background = 'url(gif/eat.gif)';
+		}
+		//console.log(bsc,scrollTop != 0 );
+		if(bsc &&(scrollTop != 0 ) ){
+			//scrollonce();
+			oBtup.style.display = 'block';
+			startMove(oHc,{height:30});
+			bsc = false;
+			startMove(oHead,{'height':30},{'duration':700,'easing':'ease-out'});
+			startMove(Oheadspace,{'height':30},{'duration':700,'easing':'ease-out'});
+			startMove(iLogo,{'height':18,'width':22,'top':6,'left':900},{'duration':700,'easing':'ease-out'});
+			startMove(oTitle,{'fontSize':10,'left':800,'top':6},{'duration':700,'easing':'ease-out'});
+			startMove(oHandWrite,{'width':99,'height':48,'margin-top':6},{'duration':700,'easing':'ease-out'});
+			//console.log(Math.random())
+			return false;
+		}
+	}
+	//-------------head end------------
+	//--------------sheep begin---------
+		var timer = null;
+		oBtup.onmouseover = function(){
+			if(!bsheep){
+				oBtup.style.background = "url(gif/cal.gif)"
+				}
+			}
+		oBtup.onmousedown = function(){
+			if(!bsheep){
+				oBtup.style.background = "url(gif/fri.png)"
+				}
+			}
+
+		oBtup.onmouseout = function(){
+			if(!bsheep){
+				oBtup.style.background = "url(gif/eat.gif)"
+			}
+		}
+			
+		oBtup.onmouseup=function(){
+			if(!bsheep){
+				oBtup.style.background = "url(gif/som.png)"
+				var start = document.body.scrollTop || document.documentElement.scrollTop;
+				var dis = 0 - start;
+				var count = 60;
+				var n=0;
+				timer = setInterval(function(){
+				n++;
+				var cur  = start + dis*n/count;
+				if(document.body.scrollTop){
+					document.body.scrollTop = cur;
+				}else{
+					document.title=cur;
+					document.documentElement.scrollTop = cur ;
+				} 
+				if(n == count ){
+					clearInterval(timer);
+					bsheep = false;
+					}
+				},10)
+			}
+			bsheep = true;
+		}
+	//--------------sheep end---------
+}
+</script>
+</head>
+<body>
+	<!-- 顶部栏开始 -->
+	<div id="headspace"></div>
+	<div id="head">
+			<div id="headcon">
+			<img src="oboo.png" style="margin-top:80px;margin-left:80px;" id="oboo_top">
+			<span id= 'title'>For UnKnown</span>		
+			<img src="logo.png" id="logo">
+		</div>
+	</div>
+	<!-- 顶部栏结束 -->
+	<div id="content">
+		<iframe src="resoces/redume.html" id="fuck"></iframe>
+		<iframe src="resoces/products.html" ></iframe>
+		<iframe src="resoces/team.html" ></iframe>
+		<iframe src="resoces/target.html" ></iframe>
+	</div>
+
+	<div id="toup"></div>
+</body>
+</html>

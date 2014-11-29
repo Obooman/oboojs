@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+.smalls{width: 50px;height: 50px;background: blue;margin: 10px;float: left;display: inline-block;}
+#container{width: 100%;text-align: center;position: absolute;bottom: 0;float: left;padding-left:400px; }
+html{overflow: hidden;}
+</style>
+<script type="text/javascript">
+window.onload=function(){
+	var oDiv = document.getElementById('container');
+	var aDiv = oDiv.getElementsByTagName('div');
+	document.onmousemove = function(ev){
+		var oEvent  = ev||event;
+		var clX = oEvent.clientX;
+		var clY = oEvent.clientY;
+		for(var i=0;i<aDiv.length;i++){
+			var a = clX - aDiv[i].offsetLeft - aDiv[i].offsetWidth/2;
+			var b = clY - aDiv[i].offsetTop - aDiv[i].offsetHeight/2 - oDiv.offsetTop;
+			var c = Math.sqrt(a*a+b*b);
+			var scale =1-c/700;
+			if(scale<0.5){ 
+				scale = 0.5
+			};
+			aDiv[i].style.marginTop = -scale*100 +"px";
+			aDiv[i].style.width = scale*100 +"px";
+			aDiv[i].style.height = scale*100 +"px";
+		}
+	}
+}
+</script>
+</head>
+<body>
+	<div id="container">
+		<div class="smalls"></div>
+		<div class="smalls"></div>
+		<div class="smalls"></div>
+		<div class="smalls"></div>
+		<div class="smalls"></div>
+	</div>
+</body>
+</html>

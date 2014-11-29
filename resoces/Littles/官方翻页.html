@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+*{margin: 0;padding: 0;list-style: none;}
+ul{width: 360px;height: 360px;margin:200px auto; }
+li{width: 98px;height: 98px ;border: 1px solid black;margin: 10px;float: left;}
+</style>
+<script type="text/javascript" src= "move.js"></script>
+<script type="text/javascript">
+window.onload=function(){
+	var oBtn = document.getElementById('btn');
+	var oUl = document.getElementsByTagName('ul')[0];
+	var aLi = document.getElementsByTagName('li');
+	var aPos = [];
+	var timer = null;
+	var New = true;
+
+	oBtn.onclick=function(){
+
+		if(New){
+			New = false;
+			var i=0;
+			timer = setInterval(function(){
+				(function(index){
+					startMove(aLi[index],{'width':0,'height':0,'opacity':0,'left':0,'top':0},{'duration':800,'complete':function(){
+					if( index == aLi.length-1){
+							for(var i=0;i<aLi.length;i++){
+								aLi[i].style.background = "rgb("+parseInt(Math.random()*256)+","+parseInt(Math.random()*256)+","+parseInt(Math.random()*256)+")"
+							}
+							var i = aLi.length -1;
+							timer = setInterval (function(){
+								startMove(aLi[i],{'width':98,'height':98,'left':aPos[i].left,"top":aPos[i].top,'opacity':1});
+								i--;
+								if( i == -1){
+									clearInterval(timer);
+									New = true;
+								}
+							},200)
+						}
+					}});
+				})(i)
+				i++;
+				if(i == aLi.length){
+					clearInterval(timer);
+				}
+			},200)}else{};
+}
+	for(var i=0;i<aLi.length;i++){
+		var l = aLi[i].offsetLeft;
+		var t = aLi[i].offsetTop;
+		aPos.push({'left':l,'top':t})
+	}
+	for(var i=0;i<aLi.length;i++){
+		aLi[i].style.left = aPos[i].left + "px";
+		aLi[i].style.top = aPos[i].top + "px";
+		aLi[i].style.position = 'absolute';
+		aLi[i].style.margin = 0;
+	}
+}
+</script>
+</head>
+<body>
+	<input type="button" value="change" id="btn">
+<ul>	
+	<li></li>
+	<li></li>
+	<li></li>
+	<li></li>
+	<li></li>
+	<li></li>
+	<li></li>
+	<li></li>
+	<li></li>
+</ul>
+</body>
+</html>

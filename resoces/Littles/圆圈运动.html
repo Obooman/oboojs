@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+#orbit{width: 300px;height: 300px;border: 1px solid black;border-radius: 50%;margin: 200px auto;}
+span{width: 50px;height: 50px;background: #029df9;border-radius: 50%;border: 1px solid black;position: absolute;left: 50%;margin-left: -25px;margin-top: -25px}
+</style>
+<script type="text/javascript">
+window.onload=function(){
+	//var oBall = document.getElementById('ball');
+	var oRbit = document.getElementById('orbit');
+	//setInterval(function(){
+	//	a+=0.1;
+	//	oBall.style.left = 150*Math.sin(a)+oRbit.offsetWidth/2+oRbit.offsetLeft + "px";
+	//	oBall.style.top = 150-150*Math.cos(a)+oRbit.offsetTop + "px";
+	//},30)
+		for(var i=0;i<10;i++){
+			var oSpan = document.createElement('span');
+			oRbit.appendChild(oSpan);
+			oSpan.a = 0;
+		}
+		//
+		//document.onclick=function(){
+		//	startMove2(oBall,700);
+		//}
+		var aSpan = oRbit.getElementsByTagName('span');
+		var Bok = true;
+		document.onclick=function(){
+			if(Bok){
+				for(var i=0;i<aSpan.length;i++){
+					startMove2(aSpan[i],i*36);
+				}
+			}else{
+				for(var i=0;i<aSpan.length;i++){
+						startMove2(aSpan[i],0)
+					}
+			}
+			Bok = !Bok;
+		}
+		
+		//var oSpan = document.createElement('span');
+		//oRbit.appendChild(oSpan);
+		//oSpan.a = 0;
+		//startMove2(oSpan,36);
+
+		function d2a(d){
+			return d/180*Math.PI;
+		}
+
+		function startMove2(obj,target){
+			target = d2a(target);
+			var start = obj.a;
+			console.log(start);
+			var dis = target - start;
+			var count = 100;
+			clearInterval(obj.timer);
+			var n =0;
+			obj.timer = setInterval(function(){
+				n++;
+				var cur = start +dis/count*n;
+				obj.style.left = 150*Math.sin(cur)+oRbit.offsetWidth/2+oRbit.offsetLeft + "px";
+				obj.style.top = 150-150*Math.cos(cur)+oRbit.offsetTop + "px";
+				obj.a = cur;
+				if(n == count){
+					clearInterval(obj.timer);
+				}
+
+		},10)
+	}
+}
+</script>
+</head>
+<body>
+	<div id="orbit">
+	</div>
+</body>
+</html>

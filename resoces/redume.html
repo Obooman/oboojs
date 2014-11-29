@@ -1,0 +1,127 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body{font-family: 微软雅黑}
+#incaseoverfl{width:1130px;height: 691px;position: absolute;left: 50%;margin-left: -565px;overflow: hidden;}
+#wrap{text-align:center;line-height:200px;width:200px;height: 200px;border:1px solid white;background: #5fd9cd;border-radius: 50%;position: absolute;left: 50%;top:50%;margin-left: -100px;margin-top:-100px;font-family: 微软雅黑;color: white;font-size: 20pt}
+#ci1{width:180px;height: 180px;border:1px solid #5fd9cd;border-radius: 50%;position: absolute;left: 50%;top:50%;margin-left: -90px;margin-top:-90px;}
+#ci2{width:210px;height: 210px;border:1px solid #5fd9cd;border-radius: 50%;position: absolute;left: 50%;top:50%;margin-left: -105px;margin-top:-105px;}
+#bu{width:200px;height: 200px;border-radius: 50%;position: absolute;left: 50%;top:50%;margin-left: -100px;margin-top:-100px;line-height: 150px;text-align: center;z-index: -1;font-family: 微软雅黑;font-size: 30px;color:#5fd9cd;}
+p{margin-top: -100px;font-size: 10px;background: white}
+#seibtn1{width: 120px;height: 30px;background: #5fd9cd;border:1px solid #5fd9cd;border-radius: 3px;text-align: center;line-height: 30px;color: white;position: absolute;left: 50%;top: 45%;margin-left: -60px;margin-top: 15px;z-index: -10}
+#seibtn2{width: 120px;height: 30px;background: #5fd9cd;border:1px solid #5fd9cd;border-radius: 3px;text-align: center;line-height: 30px;color: white;position: absolute;right: 50%;top: 45%;margin-right: -60px;margin-top: 15px;z-index: -10}
+span.blt{font-size: 30pt;text-align: center;width: 300px;position: absolute;left: 50%;top: 40px;margin-left: -150px;color:#5fd9cd;}
+span.intro{font-size: 11pt;text-align: center;width: 500px;position: absolute;left: 50%;top: 120px;margin-left: -250px;color:#5fd9cd;opacity:0;}
+.slidinfo{width: 200px;position: absolute;left: -40px;top: 50px;height: 0;opacity: 0;}
+#bottom{text-align: center;width: 300px;position: absolute;left: 50%;margin-left: -150px;bottom: 20px;color: #5fd9cd}
+#Cn_info{width: 160px;height: 50px;border: 1px solid #5fd9cd;position: absolute;font-size:10px;padding:5px;text-align: center;margin-left: 10px}
+#lvli{width: 200px;height: 600px;overflow: hidden; }
+#fr{width: 200px;height: 600px;outline: none;}
+</style>
+<script type="text/javascript" src = "move.js"></script>
+<script type="text/javascript">
+window.onload=function(){
+	//
+
+	//var aImage = document.getElementsByTagName('img');
+	//alert(aImage.length)
+	//for(var i=0;i<aImage.length;i++){
+	//	aImage[0].onmouseover = function(){
+	//		aImage[0].style.marginTop = 5 + 'px';
+	//	}
+	//}
+	//changeHeight();
+	//function changeHeight(){
+	//	var clienty = document.documentElement.clientHeight//document.documentElement.clientY || ;
+	//	console.log(clienty-15);
+	//	//alert(clienty);
+	//	document.getElementById('incaseoverfl').style.height = clienty -15+ "px"
+	//}
+	//window.onresize = function(){
+	//	changeHeight();
+	//}
+	//
+	var oCi1 = document.getElementById('ci1');
+	var oCi2 = document.getElementById('ci2');
+	var oDiv = document.getElementById('wrap');
+	var oSeibtn1 = document.getElementById('seibtn1');
+	var oSeibtn2 = document.getElementById('seibtn2');
+	var oIntro1 = document.getElementById('intro')
+	var oBlt1 = document.getElementById('blt')
+	var oLvl = document.getElementById('lvli');
+	var oNel = document.getElementById('neli');
+	oCi1.y = true;oCi2.y = true;
+	var animate = true;
+	document.onclick=function(){
+		if(animate){
+			animate = false;
+			startMove(oIntro1,{'opacity':1},{duration:500});
+			startMove(oSeibtn1,{'left':150},{'complete':function(){
+			startMove(oSeibtn1,{'top':100});
+			}});
+			startMove(oSeibtn2,{'right':150},{'complete':function(){
+				startMove(oSeibtn2,{'top':100},{'complete':function(){
+					startMove(oLvl,{height:500,'opacity':1},{'duration':1000});
+					startMove(oNel,{height:300,'opacity':1},{'duration':1000});
+				}});
+			}});
+			startMove(oDiv,{'width':400,'height':400,'marginTop':-200,'marginLeft':- 200,'opacity':0,"lineHeight":400},{'duration':600,'	complete':function(){
+					oDiv.style.display = 'none';
+			}})
+		}
+		
+	}
+
+		setInterval(function(){
+			if(oCi1.y){
+				startMove(oCi1,{'width':180,'marginLeft':-90,'marginTop':-90,'height':180})
+				oCi1.y = false;
+				//console.log(1);
+			}else{
+				startMove(oCi1,{'width':210,'marginLeft':-105,'marginTop':-105,'height':210})
+				oCi1.y = true;
+				//console.log(2);
+			}
+		},400)
+
+		setInterval(function(){
+			if(oCi2.y){
+				startMove(oCi2,{'width':210,'marginLeft':-105,'marginTop':-105,'height':210})
+				oCi2.y = false;
+				//console.log(1);
+			}else{
+				startMove(oCi2,{'width':180,'marginLeft':-90,'marginTop':-90,'height':180})
+				oCi2.y = true;
+				//console.log(2);
+			}
+		},400)
+	}
+</script>
+</head>
+<body >
+	<div id="incaseoverfl">
+		<span class="blt">年轻，大有可为</span>
+		<span class="intro" id="intro">没有什么比一颗年轻的心更加善变，也没有什么比年轻人更有朝气<br/>	年轻不失激情，未来才有无限可能</span>
+		<div id="wrap">我的简历</div>
+		<div id="ci1"></div>
+		<div id="ci2"></div>
+		<div id="bu">程奥博<p>来自江苏的小伙子</p></div>
+		<div class="seibtn" id="seibtn1">我的履历
+			<div class="slidinfo" id="lvli"></div>
+		</div>
+		<div class="seibtn" id="seibtn2">我的技能
+			<div class="slidinfo" id="neli">
+				<img src="javas.png" style="width:154px ;margin-top:10px;margin-left:5px">
+				<img src="html5.png" style="width:74px;margin-top:10px;margin-left:5px">
+				<img src="css3.png" style="width:118px;margin-top:10px;margin-left:5px">
+				<img src="pss.png" style="width:70px;margin-top:10px;margin-left:5px">
+				<img src="dw.png" style="width:84px;margin-top:10px;margin-left:5px">
+			</div>
+		</div>
+		<!--			<div id="Cn_info">程奥博 Age:19<br/>Phone:18260718791<br/>E-mail:cheng.12@live.cn</div>-->
+
+		<span id="bottom">没有不可能<br/>impossible ? I'm possible</span>
+	</div>
+</body>
+</html>

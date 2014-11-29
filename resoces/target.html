@@ -1,0 +1,89 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body{font-family: 微软雅黑}
+div.drag1,div.drag{width: 1100px;height: 400px;position: absolute;left: 50%;margin-left: -550px;border: 1px solid #17598b;top: 200px;overflow: hidden;;}
+/*div.drag:hover{cursor:url(file:///D:/qawdqwdq.ani)}*/
+div.dragin{width: 5px;height: 400px;background: #17598b;cursor: e-resize;position: absolute;right: 0;}
+#drag3{background:#17598b;}
+#drag2{background:#17598b}
+#drag1{background:#17598b}
+span.blt{font-size: 30pt;text-align: center;width: 300px;position: absolute;left: 50%;top: 40px;margin-left: -150px;color:#17598b;}
+span.intro{font-size: 11pt;text-align: center;width: 500px;position: absolute;left: 50%;top: 120px;margin-left: -250px;color:#17598b;opacity:1;}
+div.tags{width: 80px;height: 30px;border: 1px solid white;position: absolute;bottom:40px;left: 960px;color:white;text-align: center;line-height: 30px;}
+img.drag_image{position: absolute;left: 90px;top: 100px;}
+</style>
+<script type="text/javascript" src = "move.js"></script>
+<script type="text/javascript">
+window.onload=function(){
+	var aDrag = document.querySelectorAll('div.drag');
+	var aDragin = document.querySelectorAll('div.dragin');
+	//var oDrag1 = document.getElementById('drag1');
+	//var oDragin1 = document.getElementById('drag1in');
+	//var oDrag2 = document.getElementById('drag2');
+	//var oDragin2 = document.getElementById('drag2in');
+	
+	console.log(aDragin.length,aDrag.length)
+	for(var i=0;i<aDrag.length;i++){
+		drag(aDragin[i],aDrag[i],i)
+	}
+
+function drag(obj,obj2,n){
+	obj.onmousedown = function(ev){
+		console.log(1);
+		var oEvent = ev||event;
+		var disX = oEvent.clientX;
+		document.onmousemove = function(ev){
+			var sib = obj.previousSibling || obj.previousElementSibling
+			console.log(obj2.offsetWidth);
+			var oEvent = ev||event;
+			
+			var cur = oEvent.clientX - obj2.offsetLeft ;
+			if(cur < (1-n)*5){
+				cur = (1-n)*5;
+			}else if(cur > 1095){
+				cur = 1095;
+			}//else if(sib && cur < sib.offsetLeft + sib.offsetWidth){
+				//cur = sib.offsetLeft + sib.offsetWidth
+				//alert(sib);
+			//}
+			obj.style.left = cur + "px";
+			obj2.style.width = cur + 5 + "px";
+			document.onmouseup = function(){
+				document.onmousemove = null;
+				document.onmouseup = null;
+			}
+			//oEvent.stopPropagation();
+			//oEvent.defaultPrevented & oEvent.defaultPrevented();
+			oEvent.preventDefault && oEvent.preventDefault()
+			return false;
+		}
+	}
+	 obj2.onmousedown = function(ev){
+			return false;
+	}
+}
+	
+}
+</script>
+
+</head>
+<body >
+	<span class="blt">有目标才更完整</span>
+	<span class="intro" id="intro">一个员工带给公司的不只是自己的能力，更重要的是自己的上升空间<br/>我相信一个喜欢自我提升的员工对公司是最大的财富</span>
+
+
+	<div id="drag3" class="drag1"><span style="font-size:15pt;position:absolute;left:730px;bottom:160px;color:white">我一直追求的效率在这儿</span><img src="nodejstar.png"><div class="tags">Node.js</div></div></div>
+
+
+
+	<div id="drag2" class="drag"><div class="tags">CSS</div><div id="drag2in" class="dragin"><span style="position:absolute;top:100px;width:10px;height:45px;background:#000"></span></div>
+<div style="font-size:15pt;position:absolute;left:730px;bottom:160px;color:white;width:260px;">做一个懂设计的攻城师</div><img src="css.png"></div>
+
+
+
+	<div id="drag1" class="drag"><div class="tags">HTML5</div><div id="drag1in" class="dragin"><span style="position:absolute;top:100px;width:10px;height:45px;background:#000"></span></div>
+<div style="font-size:15pt;position:absolute;left:730px;bottom:160px;color:white;width:260px;">无法抵挡的Canvas魅力</div><img src="html5tar.png"></div>
+</body>
+</html>

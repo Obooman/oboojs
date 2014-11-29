@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Document</title>
+<style>
+*{margin:0; padding:0;}
+div{ width:100%; min-height: 600px;}
+</style>
+<script>
+window.onload = function(){
+  alert(Math.round(-1.5));
+    var aDiv = document.getElementsByTagName('div');
+    var iNow = 0;
+    var abled = true;
+    var timer = null;
+    var isMoving = false;
+    //var timeout = null;
+
+     setHeight();
+     function setHeight(){
+          for(var i = 0; i < aDiv.length; i++){
+               h = document.documentElement.clientHeight;
+               aDiv[i].style.height = h + 'px';
+          }
+     }
+     var per = aDiv[0].offsetHeight;
+     //console.log(per);
+
+var aPos = [1,2,3,3];
+
+window.onscroll = function(){
+      if(!isMoving){
+            var scrollTop =  document.body.scrollTop 
+            iNow = parseInt(scrollTop/per);
+            document.title = iNow;
+            //if(iNow == 3){
+            //  iNow = 2
+            //}
+      }
+    }
+
+document.onmousewheel = function(ev){
+  var oEvent = ev||event;
+  var bDown = true;
+  if(abled){
+       if(oEvent.wheelDelta){
+                 bDown = oEvent.wheelDelta > 0 ? false : true;     
+            } else {
+                 bDown = oEvent.detail > 0 ? true : false;
+            }
+        if(bDown){
+          //alert(1);
+          abled = false;
+          iNow++;
+            if(iNow > 3){ 
+              iNow = 3;
+            }
+               Move(iNow);
+          }else{
+            iNow --;
+            //iNow+=0.5;
+            //iNow = -Math.round(-iNow);
+            //alert(2);
+           // alert(iNow)
+            //if(iNow)
+             abled = false;
+            if(iNow < 0){
+              iNow = 0;
+            }
+            Move(iNow);
+      }
+    }
+    return false;
+    oEvent.preventDefault();
+  }
+
+
+
+function Move(index,fn){
+  isMoving = true;
+  clearInterval(timer);
+  var scroll =  document.body.scrollTop;
+  start = scroll;
+ // alert(index);
+  dis = index*per - scroll;
+  //alert(dis);
+  var count = Math.floor(1000/30);
+  var n = 0;
+  timer = setInterval(function(){
+        n++;
+        var a =n/count;
+         var cur = start + dis*Math.pow(a,3);
+         document.body.scrollTop = cur;
+        if(n == count){
+          clearInterval(timer);
+          abled = true;
+        }
+      },30)
+    }
+}
+</script>
+</head>
+<body>
+     <div style="background:#FF8080"></div>
+     <div style="background:#FFFF80"></div>
+     <div style="background:#80FF80"></div>
+     <div style="background:#0080FF"></div>
+</body>
+</html>

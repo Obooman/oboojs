@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<style>
+*{margin: 0;padding: 0;list-style: none}
+#box{width:300px;height: 500px;position: relative;margin: 100px auto;overflow: hidden;}
+#box ul{position: absolute;left: 0;top: 0;}
+li{width: 300px;height: 500px;float: left;}
+</style>
+<script type="text/javascript" src="move.js"></script>
+<script>
+window.onload=function(){
+	var aLi = document.getElementsByTagName('li');
+	var oUl = document.getElementsByTagName('ul')[0];
+	oUl.style.width = aLi.length*aLi[0].offsetWidth + "px";
+	var iNow = 0;
+	//alert(aLi.length)
+	for(var i=0;i<aLi.length;i++){
+		aLi[i].style.background = "rgb("+parseInt(Math.random()*255)+","+parseInt(Math.random()*255)+","+parseInt(Math.random()*255)+")"
+	}
+	oUl.onmousedown = function(ev){
+		clearInterval(oUl.timer);
+		var oEvent = ev||event;
+		var oDown = oEvent.clientX;
+		var disX = oDown - oUl.offsetLeft;
+		document.onmousemove = function(ev){
+			var oEvent = ev||event;
+			var oX = oEvent.clientX - oDown;
+			var cur = oEvent.clientX - disX;
+			if(iNow == 0 && oX >0){
+				cur = cur/5;
+			}
+			if(iNow == aLi.length-1 && oX <0){
+				cur = - oUl.offsetWidth + aLi[0].offsetWidth + oX/5;
+			}
+			oUl.style.left = cur + "px";
+		}
+		document.onmouseup = function(ev){
+			document.onmousemove = null;
+			document.onmouseup = null;
+			var oEvent = ev||event;
+			var delta = oEvent.clientX - oDown;
+			console.log(delta);
+			if(Math.abs(delta) < 50){
+				console.log('haha');
+				startMove(oUl,{'left':- iNow*300});
+				//oUl.style.left = - iNow*300+'px';
+			}else{
+				if(delta < 0){
+					console.log('dayu');
+					iNow ++ ;
+					if(iNow == aLi.length){
+						iNow = aLi.length - 1;
+					}
+					startMove(oUl,{'left':- iNow*300});
+				}else{
+					console.log('xiaoyu');
+					iNow --;
+					if(iNow < 0){
+						iNow = 0;
+					}
+					startMove(oUl,{'left':- iNow*300});
+				}
+			}
+
+		}
+		return false;
+	}
+}
+</script>
+</head>
+<body>
+	<div id="box">
+		<ul>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+		</ul>
+	</div>
+</body>
+</html>

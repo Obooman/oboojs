@@ -1,0 +1,376 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+*{margin: 0;padding: 0;list-style: none;text-decoration: none}
+body{font-family: 微软雅黑}
+div.incaseoverfl a{color:white}
+div.incaseoverfl span.blt{font-size: 30pt;text-align: center;width: 300px;position: absolute;left: 50%;top: 40px;margin-left: -150px;color:#ff4366;}
+.incaseoverfl{width:1130px;height: 691px;position: absolute;left: 50%;margin-left: -565px;overflow: hidden;}
+#nav{width: 100%;height: 40px;background: #ff4366;position: absolute;top: 150px;}
+#ul_nav{margin-left:60px}
+#ul_nav li{height: 40px;color:white;float: left;line-height: 38px;margin-left: 30px;padding-left: 10px;padding-right: 10px;cursor: pointer;opacity: 0.5;filter:alpha(opacity:80);}
+#ul_nav li:hover{opacity: 1}
+#ul_nav li.active{background: white;color: #ff4366;opacity: 1}
+#wraper{width: 1000px;height:450px;position: absolute;left: 50px;top: 200px;overflow: hidden;}
+#bigs{position: absolute;width: 3000px;left: 0}
+div.incaseoverfl li.bigs{width: 1000px;height: 450px;float: left;position: relative;}
+div.incaseoverfl div.cbtn{width: 100px;height: 100px;background: #ff4366;position: absolute;}
+#btnp{top: 400px;left: 100px;opacity:0.2}
+#btnn{top: 400px;right:100px;opacity:0.8;}
+/*====================conlender=======================*/
+#conlencontainer{width: 280px;border: 20px solid #ff4366;position: relative;margin: 100px auto;overflow: hidden;}
+#title{width: 100%;height: 30px;text-align: center;line-height: 30px;background:#ff4366;color: white}
+#conlenbtnp,#conlenbtnn{width: 30px;height: 30px;position: absolute;background: #eaa1ae}
+#conlenbtnn{top: 0;right: 0}
+div.incaseoverfl ol{width: 100%;height: 40px;background: #dbf;}
+div.incaseoverfl ol li {width: 30px;float: left;height: 30px;margin: 5px;color: white;text-align: center;line-height: 30px}
+div.incaseoverfl li.weekend{color: #ff4366}
+#ordered{width: 100%;}
+#ordered li{width: 28px;float: left;height: 28px;margin: 5px;text-align: center;line-height: 30px;border:1px solid white;}
+div.incaseoverfl li.now{background: #ff4366;border:1px #ff4366 solid;border-radius: 50%;color: white }
+div.incaseoverfl li.passed{color:#ccc;}
+/*====================conlender=======================*/
+/*====================clock======================*/
+#clockcon{ position:relative;width:300px; height:300px; background:white; border:5px solid #ff4366; margin:80px auto;
+  border-radius:50%;
+}
+#hour,#min,#sec,#cap{ position:absolute; left:50%;top:50%;
+	-webkit-transform-origin:center bottom;
+}
+#hour{ margin-left:-5px; margin-top:-80px;width:10px;height:80px; background:#ff4366;z-index:3;border-radius: 10px}
+#min{margin-left:-4px; margin-top:-100px;width:8px;height:100px; background: #ff4366;z-index:2;border-radius: 10px}
+#sec{margin-left:-3px; margin-top:-120px;width:6px;height:120px; background: #ff4366; z-index:1;border-radius: 10px}
+#cap{margin-left:-10px;margin-top:-10px;width:20px;height:20px; background:#84af9b; border-radius:50%;z-index:4;}
+#clockcon span{ position:absolute;left:50%; margin-left:-2px; width:4px; height:8px; background:#ff4366;
+	-webkit-transform-origin:center 150px;
+}
+#clockcon .on{ height:12px;background:  #ff4366}
+#clockcon span em{ font-style:normal; position:absolute;left:50%; top:10px; margin-left:-20px; width:40px;  text-align:center;}
+/*====================clock======================*/
+/*====================draw======================*/
+#drawcontent {display: block;font-size: 14px;margin: 0px 2px 0px 2px;padding: 0px 15px 0px 15px;line-height: 150%;color: #1A2536;font-family: "PT Serif", Georgia, Times, "Times New Roman", "Heiti SC", "Microsoft Yahei", "微软雅黑", "宋体", serif;
+ position: absolute;left: 230px;top: 50px}
+/*====================draw======================*/
+</style>
+<script type="text/javascript" src = "move.js"></script>
+<script type="text/javascript">
+window.onload = function(){
+	var oBtnp = document.getElementById('btnp');
+	var oBtnn = document.getElementById('btnn')
+	var iNow = 0;
+	var oNav = document.getElementById('nav');
+	var aLi = oNav.getElementsByTagName('li');
+	var oUl = document.getElementById('bigs');
+	oBtnn.bclick = true;
+	oBtnp.bclick = false;
+
+	//IMG return false
+	var aImg = document.getElementsByTagName('img');
+	for(var i=0;i<aImg.length;i++){
+		aImg[i].onclick=function(){
+			return false;
+		}
+	}
+	//end
+	//alert(oUl.children.length);
+	oUl.onclick=function(){
+		//var oEvent = ev||event
+
+		return false;
+	}
+	function clears(){
+			for(var i=0;i<oUl.children.length;i++){
+			aLi[i].className = "";
+			}
+		}
+	for(var i=0;i<oUl.children.length;i++){
+		(function(index){
+			aLi[index].onclick=function(){
+			clears();
+			iNow = index;
+			oBtnp.bclick = true;
+			oBtnn.bclick = true;
+			if(iNow == 2){
+				oBtnn.style.opacity = 0.2;
+				oBtnn.bclick = false;
+			}else{
+				oBtnn.style.opacity = 0.8;
+			};
+			if(iNow <= 0){
+				iNow = 0;
+				oBtnp.style.opacity = 0.2;
+				oBtnp.bclick = false;
+				}else{
+				oBtnp.style.opacity = 0.8;
+			}
+			aLi[index].className = "active";
+			startMove(oUl,{'left':-index*1000})
+			//oUl.style.left = -index*1000+'px';
+		}
+		})(i)
+	}
+	//doubel
+	//oBtnn.ondbclick =  oBtnp.ondbclick =  function(){
+	//	return false;
+	//}
+	//
+
+	oBtnn.onclick = function(ev){
+		var oEvent = ev||event;
+		if(oBtnn.bclick){
+			iNow++;
+			if(iNow == 2){
+				oBtnn.style.opacity = 0.2;
+				oBtnn.bclick = false;
+			}else{
+				oBtnn.style.opacity = 0.8;
+			};
+			clears();
+			oBtnp.bclick = true;
+			oBtnp.style.opacity = 0.8;
+			aLi[iNow].className = "active";
+			startMove(oUl,{'left':-iNow*1000})
+		}
+		oEvent.preventDefault && oEvent.preventDefault();
+		return false;
+	}
+	oBtnp.onclick = function(ev){
+		var oEvent = ev||event;
+		if(oBtnp.bclick){
+			iNow--;
+			//alert(iNow);
+			if(iNow <= 0){
+				iNow = 0;
+				oBtnp.style.opacity = 0.2;
+				oBtnp.bclick = false;
+				}else{
+				oBtnp.style.opacity = 0.8
+			};
+			clears();
+			oBtnn.style.opacity = 0.8;
+			oBtnn.bclick=true;
+			aLi[iNow].className = "active";
+			startMove(oUl,{'left':-iNow*1000})
+		}
+		oEvent.preventDefault && oEvent.preventDefault();
+		return false;
+	}
+/*====================clock=======================*/
+var oClickcont = document.getElementById("clockcon");
+	var oH = document.getElementById("hour");
+	var oM = document.getElementById("min");
+	var oS = document.getElementById("sec");
+
+	function clock(){
+		var oDate = new Date();
+		var iH = oDate.getHours();
+		var iM = oDate.getMinutes();
+		var iS = oDate.getSeconds();
+		var ims = oDate.getMilliseconds();
+		
+		//console.log(iH,iM,iS,iM/60*30);
+		oH.style.WebkitTransform = "rotate("+(30*iH +iM/60*30) +"deg)";
+		oM.style.WebkitTransform = "rotate("+(6*iM + iS/60*6)+"deg)";
+		oS.style.WebkitTransform = "rotate("+(6*iS + ims/1000*6)+"deg)";
+	}
+	clock();
+	setInterval(clock,30);
+	
+	for(var i = 0; i < 60; i++){
+		var oSpan = document.createElement("span");
+		oClickcont.appendChild(oSpan);
+		oSpan.style.WebkitTransform = "rotate("+6*i+"deg)";
+		
+		if(i%5 == 0){
+			
+			if(i == 0){
+				oSpan.innerHTML = "<em>12</em>";
+			} else {
+				oSpan.innerHTML = "<em>"+i/5+"<\/em>";
+			}
+			oSpan.className = "on";
+			oSpan.children[0].style.WebkitTransform = "rotate(-"+6*i+"deg)";
+		}
+	}
+/*====================clock=======================*/
+/*====================conlender=======================*/
+var conlenderUl = document.getElementById('ordered')
+	var conlenderiNow = 0;
+	var empty = 0;
+	var oNext = document.getElementById('conlenbtnn');
+	var oPre = document.getElementById('conlenbtnp');
+	var oSpan = document.getElementById('span');
+	
+	oNext.onclick=function(){
+		conlenderiNow++;
+		conlenderchange();
+	}
+	oPre.onclick=function(){
+		if(conlenderiNow > 0){
+			conlenderiNow --;
+			conlenderchange();
+		}
+	}
+
+	conlenderchange()
+
+ function conlenderchange(){
+ 	conlenderUl.innerHTML = "";
+	var oDate = new Date();
+	oDate.setDate(1);
+	oDate.setMonth(oDate.getMonth()+1+conlenderiNow);
+	oDate.setDate(0);
+	var days = oDate.getDate();
+	oDate.setDate(1);
+	if(	oDate.getDay() == 0){
+		empty = 6
+	}else{
+		empty = oDate.getDay()-1
+	}
+	appendli(empty,days);
+	oDate = new Date();
+	oDate.setMonth(oDate.getMonth()+conlenderiNow);
+	oSpan.innerHTML = oDate.getFullYear()+"."+eval(oDate.getMonth()+1);
+
+ }
+	function appendli(empty,days){
+		for(var i=0;i<empty;i++){
+			var oLi = document.createElement("li");
+			conlenderUl.appendChild(oLi);
+		}
+		for(var i=1;i<days+1;i++){
+			var oLi = document.createElement('li');
+			oLi.innerHTML = i;
+			if( (empty+i)%7 == 0 || (empty+i)%7 == 6 ){
+				oLi.className = 'weekend';
+			}
+			if(conlenderiNow == 0){
+				var oDate = new Date();
+				var date = oDate.getDate();
+				if(i == date){
+					oLi.className = "now";
+				}
+				if(i < date){
+					oLi.className = 'passed'
+				}
+			}
+			conlenderUl.appendChild(oLi)
+		}
+	}
+/*====================conlender=======================*/
+/*====================draw=======================*/
+ function Draw(arg){
+        if(arg.nodeType){    //判断结点类型
+            this.canvas = arg;      
+        }else if(typeof arg =='string'){
+            this.canvas = document.getElementById(arg);
+        }else{
+            return;
+        }
+        this.init();
+    }
+    Draw.prototype = {
+        init:function(ev){
+        		var oEvent = ev||event;
+                var that = this;
+                if (!this.canvas.getContext) {   //判断是否支持Canvas
+                    return;
+                }
+                this.context = this.canvas.getContext('2d');
+                this.canvas.onselectstart = function(){  //去掉选择
+                    return false;
+                };
+                this.canvas.onmousedown = function(){
+                    that.drawBegin(oEvent);
+                };
+        },
+
+        drawBegin:function(e){
+            var that = this,
+                 stage_info = this.canvas.getBoundingClientRect();   //getBoundingClientRect()可以不用考虑兼容性
+            window.getSelection()?window.getSelection().removeAllRanges():document.selection.empty(); //清除文本的选中
+            this.context.moveTo(
+                e.clientX - stage_info.left,
+                e.clientY - stage_info.top    
+            );
+            document.onmousemove = function(){
+                that.drawing(event);
+            };
+            document.onmouseup = this.drawEnd;   
+        },
+
+        drawing:function(e){
+            var stage_info = this.canvas.getBoundingClientRect();
+            this.context.lineTo(
+                e.clientX - stage_info.left,
+                e.clientY - stage_info.top  
+            );
+            this.context.stroke();   //相当与fill()，填充
+        },
+        drawEnd:function(){
+            document.onmousemove = document.onmouseup = null;       //释放内存
+            return false;
+        }
+    };
+    var draw = new Draw('the_stage');
+    return false;
+/*====================draw=======================*/
+}
+</script>
+</head>
+<body>
+	<div class="incaseoverfl">
+	<span class="blt">让作品说话</span>
+	<div id="nav">
+		<ul id="ul_nav">
+			<li  class="active">JS日历</li>
+			<li >CSS3时钟</li>
+			<li>HTML5绘画板</li>
+			<li><a href="http://www.baidu.com">更多效果</a></li>
+		</ul>
+	</div>
+	<div id="wraper">
+		<ul id="bigs">
+
+<!--\\\\\\\\\\\\\\\\\\\\\\\\conlender\\\\\\\\\\\\\\\\\\\\\\\\\-->
+		<li class="bigs">
+			<div id="conlencontainer">
+			<div id="title"><div id="conlenbtnp"></div><span id="span">2014.10</span><div id="conlenbtnn"></div></div>
+				<ol>
+					<li>一</li>
+					<li>二</li>
+					<li>三</li>
+					<li>四</li>
+					<li>五</li>
+					<li class = "weekend">六</li>
+					<li class = "weekend">日</li>
+				</ol>
+				<ul id='ordered'>
+			</ul>
+		</div> 
+		</li>
+<!--\\\\\\\\\\\\\\\\\\\\\\\\conlender\\\\\\\\\\\\\\\\\\\\\\\\\-->
+		<li class="bigs">
+			<div id="clockcon">
+				<div id="hour"></div>
+				<div id="min"></div>
+				<div id="sec"></div>
+				<div id="cap"></div>
+			</div>
+		</li>
+<!--\\\\\\\\\\\\\\\\\\\\\\\\conlender\\\\\\\\\\\\\\\\\\\\\\\\\-->
+		<li class="bigs">
+			 <div id="drawcontent">
+		      <canvas id="the_stage" width="520" height="350" style="border: 5px solid #ff4366;">
+		      </canvas>
+   		 	</div>  
+		</li>
+<!--\\\\\\\\\\\\\\\\\\\\\\\\conlender\\\\\\\\\\\\\\\\\\\\\\\\\-->
+	</ul>
+	</div>
+	<div id="btnp" class="cbtn"><img src="arrl.png" style="height:50px;width:50px;position:absolute;left:25px;top:25px;"/></div>
+	<div id="btnn" class="cbtn"><img src="arrr.png" style="height:50px;width:50px;position:absolute;left:25px;top:25px;"/></div>
+</div>
+</body>
+</html>
